@@ -1,0 +1,19 @@
+# Quotes module
+# Provides a random quote
+
+sensor:
+  - platform: command_line
+    name: quote
+    command: !secret fortune_command
+    scan_interval: 600
+
+group:
+  quote:
+    name: Cita
+    entities:
+      - sensor.quote
+
+homeassistant:
+  customize:
+    sensor.quote:
+      friendly_name: Cita

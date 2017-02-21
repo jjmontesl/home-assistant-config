@@ -1,0 +1,29 @@
+# Presence HASS Module
+#
+# Scripts and automations for "leaving work" event
+
+automation:
+
+  - alias: Notify Leave Work
+    trigger:
+      platform: state
+      entity_id: device_tracker.jmobile
+      from: 'Trabajo'
+      to: 'not_home'
+    action:
+      - service: script.work_leave
+
+script:
+
+  work_leave:
+    sequence:
+
+      - service: script.notify
+        data_template:
+          notify_voice: False
+          notify_mobile: True
+          notify_text: >
+            Saliendo del trabajo: {{ now().strftime("%H:%M") }}.
+
+            Temperatura en Vigo: {{ states.sensor.yr_temperature.state | round }} grados.
+

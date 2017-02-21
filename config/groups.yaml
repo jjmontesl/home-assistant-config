@@ -1,0 +1,227 @@
+
+datetimeweather:
+  name: Vigo
+  entities:
+    - sensor.time
+    - sensor.date
+    - sensor.yr_symbol
+    - sensor.yr_temperature
+    - sensor.yr_cloudiness
+    - sensor.yr_humidity
+    - sensor.yr_precipitation
+    - sensor.yr_wind_speed
+    - sensor.yr_wind_direction
+    - sun.sun
+    - sensor.moon
+
+dev_pi:
+  name: Pi
+  entities:
+    - sensor.cpu_use
+    - sensor.cpu_temp
+    - sensor.disk_use_
+    #- sensor.disk_use_home
+    - sensor.ram_free
+    - sensor.ram_use_percent
+    - sensor.since_last_boot
+
+dev_jmobile:
+  name: J Mobile
+  entities:
+    - device_tracker.jmobile
+    - sensor.jmobile_battery
+
+dev_laptop:
+  name: Laptop
+  entities:
+    - sensor.laptop_monitoring_cpu_load
+    - sensor.laptop_monitoring_disk_free
+    - sensor.laptop_monitoring_disk_use
+    - sensor.laptop_monitoring_ram_free
+    - sensor.laptop_monitoring_ram_use
+    - sensor.laptop_monitoring_swap_free
+    - sensor.laptop_monitoring_swap_use
+
+mon_sites:
+  name: Sites
+  entities:
+    - sensor.template_anastutia_web
+    - sensor.template_centum_rt_web
+    - sensor.template_centum_userportal_web
+    - sensor.external_ip
+
+tracking:
+  name: Tracking
+  entities:
+    - device_tracker.jmobile
+    - device_tracker.jtablet
+    - device_tracker.jlaptop
+
+commuting:
+  name: Desplazamientos
+  entities:
+    - sensor.casa__trabajo
+    - sensor.trabajo__casa
+    - sensor.casa__finca
+
+    - proximity.j_home
+    - sensor.distance_to_home_mean
+    - sensor.j__casa
+
+calendar_cust:
+  name: Eventos
+  entities:
+    - binary_sensor.working_day
+    - binary_sensor.quiet_time
+    - sensor.template_calendar_jjmontes
+    - sensor.template_calendar_work
+    - sensor.template_calendar_cumpleanos_j
+
+profile:
+  name: Perfiles
+  control: 'hidden'
+  entities:
+    - input_select.automation_preset
+    - input_boolean.heater
+    - input_slider.profile_volume
+
+controls:
+  name: Controles
+  control: 'hidden'
+  entities:
+    - input_select.automation_preset
+    - input_slider.profile_volume
+    - input_boolean.welcome_music
+    - input_boolean.welcome_report
+    - input_boolean.periodic_time
+    - input_boolean.periodic_report
+    - input_boolean.warnings_enabled
+    - input_boolean.leaving_media_stop
+
+room:
+  name: Habitación
+  entities:
+    - input_boolean.light_room
+    - cover.habitacion_izq
+    - cover.habitacion_der
+    - sensor.temperatura_habitacion
+
+homeoffice:
+  name: Estudio
+  entities:
+    - input_boolean.light_homeoffice
+    - cover.despacho
+    - device_tracker.jlaptop
+
+living:
+  name: Salón
+  entities:
+    - input_boolean.light_living_door
+    - input_boolean.light_living_window
+    - sensor.temperatura_salon
+
+alarms:
+  name: Alarma
+  entities:
+    - input_boolean.alarm_enabled
+    - sensor.template_alarm_time
+    - input_slider.alarm_hour
+    - input_slider.alarm_minute
+    - input_select.music_playlist
+
+lights:
+  name: Luces
+  entities:
+    - input_boolean.light_hall
+    - input_boolean.light_living_door
+    - input_boolean.light_living_window
+    - input_boolean.light_room
+    - input_boolean.light_bathroom
+    - input_boolean.light_homeoffice
+    - input_boolean.light_kitchen
+
+heating:
+  name: Calefacción
+  entities:
+    - input_boolean.heater
+    - sensor.temperatura_salon
+    - sensor.temperatura_habitacion
+
+work:
+  name: Trabajo
+  entities:
+    - sensor.emails_trabajo
+
+default_view:
+  view: True
+  name: J Casa
+  entities:
+    - group.room
+    - group.homeoffice
+    - group.living
+    - group.profile
+    - group.datetimeweather
+    - group.lights
+    - media_player.kodi
+    - media_player.lg_tv_remote
+    - media_player.clementine_remote
+    #- media_player.mpd
+    - group.tracking
+    - group.lights
+    - group.heating
+    - camera.webcam
+
+scheduling_view:
+  view: True
+  name: Planificación
+  entities:
+    - group.alarms
+    - group.datetimeweather
+    - group.commuting
+    - group.calendar_cust
+    - group.quote
+    - group.work
+
+monitoring_view:
+  view: True
+  name: Recursos
+  entities:
+    - group.dev_jmobile
+    - group.dev_pi
+    - group.dev_laptop
+    - group.tracking
+    - group.mon_sites
+    - group.work
+
+traffic_view:
+  view: True
+  name: Tráfico
+  entities:
+    - group.commuting
+    - camera.vigo_trafico_02
+    - camera.vigo_trafico_35
+    - camera.vigo_trafico_16
+    - camera.vigo_trafico_17
+    - camera.vigo_trafico_04
+    - camera.vigo_trafico_07
+    - camera.vigo_trafico_09
+
+# Configuration
+
+scripts:
+  name: Scripts (Test)
+  control: 'hidden'
+  entities:
+    - script.alarm_clock
+    - script.home_report
+    - script.periodic_report
+
+config_view:
+  view: True
+  name: Config
+  entities:
+    - group.controls
+    - group.heating
+    - group.alarms
+    - group.scripts
+

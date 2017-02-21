@@ -1,0 +1,17 @@
+- platform: command_line
+  covers:
+    homeoffice:
+      friendly_name: Despacho
+      command_open: /bin/bash -c 'echo "Despacho Abriendo" >> /tmp/covers.txt'
+      command_close: /bin/bash -c 'echo "Despacho Cerrando" >> /tmp/covers.txt'
+      command_stop: /bin/bash -c 'echo "Despacho Parando" >> /tmp/covers.txt'
+    roomleft:
+      friendly_name: Habitación Izq
+      command_open: /bin/bash -c 'echo "Habitación Izq Abriendo" >> /tmp/covers.txt'
+      command_close: /bin/bash -c 'echo "Habitación Izq Cerrando" >> /tmp/covers.txt'
+      command_stop: /bin/bash -c 'echo "Habitación Izq Parando" >> /tmp/covers.txt'
+    roomright:
+      friendly_name: Habitación Der
+      command_open: /bin/bash -c 'echo "Habitación Der Abriendo" >> /tmp/covers.txt'
+      command_close: /bin/bash -c 'echo "Habitación Der Cerrando" >> /tmp/covers.txt'
+      command_stop: /bin/bash -c 'echo "Habitación Der Parando" >> /tmp/covers.txt'

@@ -1,0 +1,19 @@
+# Transport / Traffic HASS Module
+#
+# Provides traffic information and cameras.
+# (this module is for traffic: travel distances are defined in the "geo" module).
+
+# Traffic Cams
+
+camera:
+
+  - platform: generic
+    still_image_url: http://yourcitycameras/cam?id=02
+    name: City Traffic 02  # Location
+    scan_interval: 600
+
+  - platform: generic
+    still_image_url: http://yourcitycameras/cam?id=35
+    name: City Traffic 35  # Location
+    scan_interval: 611
+

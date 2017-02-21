@@ -1,0 +1,50 @@
+# Geo HASS Module
+#
+# Provides several geotracking capabilities.
+
+# Calculate distance to home
+proximity:
+  j_home:
+    devices:
+      - device_tracker.jmobile
+    #ignored_zones:
+    #  - work
+    zone: home
+    tolerance: 50
+    unit_of_measurement: km
+
+sensor:
+
+  # Statistics of distance to home
+
+  - platform: statistics
+    name: Distance to Home
+    entity_id: proximity.j_home
+
+  # Serveral travel distances (from Google)
+
+  - platform: google_travel_time
+    api_key: !secret google_api_key
+    name: Casa - Trabajo
+    origin: !secret home_address
+    destination: !secret work_address
+
+  - platform: google_travel_time
+    api_key: !secret google_api_key
+    name: Trabajo - Casa
+    origin: !secret work_address
+    destination: !secret home_address
+
+  - platform: google_travel_time
+    api_key: !secret google_api_key
+    name: Casa - Finca
+    origin: !secret home_address
+    destination: !secret place1_address
+
+  - platform: google_travel_time
+    api_key: !secret google_api_key
+    name: J - Casa
+    origin: device_tracker.jmobile
+    destination: !secret home_address
+
+

@@ -1,0 +1,13 @@
+# System HASS Module
+#
+# Provides local system monitoring and info.
+
+sensor:
+
+  - platform: template
+    sensors:
+      jmobile_battery:
+        value_template: '{{ states.device_tracker.jmobile.attributes.battery }}'
+        friendly_name: Batería Teléfono
+        unit_of_measurement: '%'
+

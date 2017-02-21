@@ -1,0 +1,222 @@
+homeassistant:
+
+  # Name of the location where Home Assistant is running
+  name: J Home
+
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_lat
+  longitude: !secret home_lon
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 75
+
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+
+  time_zone: Europe/Madrid
+
+  # Customization
+  customize: !include customize.yaml
+
+  # Packages
+  packages:
+
+    datetime: !include packages/datetime.yaml
+    weather: !include packages/weather.yaml
+    tracking: !include packages/tracking.yaml
+
+    internet: !include packages/internet.yaml
+    internetsites: !include packages/internet_sites.yaml
+
+    notify: !include packages/notify.yaml
+
+    presencehomearrive: !include packages/presence_home_arrive.yaml
+    presencehomeleave: !include packages/presence_home_leave.yaml
+    presenceworkarrive: !include packages/presence_work_arrive.yaml
+    presenceworkleave: !include packages/presence_work_leave.yaml
+
+    devpi: !include packages/dev_pi.yaml
+    devlaptop: !include packages/dev_laptop.yaml
+    devmobile: !include packages/dev_mobile.yaml
+    devtv: !include packages/dev_tv.yaml
+
+    work: !include packages/work.yaml
+    calendars: !include packages/calendars.yaml
+    workingdays: !include packages/workingdays.yaml
+    geo: !include packages/geo.yaml
+    quotes: !include packages/quotes.yaml
+
+    alarmclock: !include packages/alarmclock.yaml
+    report: !include packages/report.yaml
+
+    webcams: !include packages/webcams.yaml
+    traffic: !include packages/traffic.yaml
+
+    apiai: !include packages/apiai.yaml
+    profiles: !include packages/profiles.yaml
+
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Track the sun
+sun:
+
+# Enables the frontend
+frontend:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: testjome
+
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+#  reporting: false
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands in enabled browsers
+#conversation:
+conversation:
+  action:
+    service: shell_command.apiai_query
+    data_template:
+      query: "{{ text }}"
+
+
+# Log and debug
+#logger:
+#  default: critical
+#  default: debug
+
+# Recorder
+recorder:
+  purge_days: 21
+
+# Enables support for tracking state changes over time.
+history: !include history.yaml
+
+# View all events in a logbook
+logbook: !include logbook.yaml
+
+
+# Text to speech
+tts:
+#  - platform: google
+#    language: 'es'
+#    cache: true
+#    cache_dir: /tmp/tts
+#    time_memory: 600
+  - platform: picotts
+    language: 'es-ES'
+
+# Calendar
+google:
+  client_id: !secret google_calendar_client_id
+  client_secret: !secret google_calendar_client_secret
+
+# Notifications
+notify telegram:
+  - platform: telegram
+    name: Telegram Notifications
+    api_key: !secret telegram_api_key
+    chat_id: !secret telegram_chat_id
+
+# Zones
+zone: !include zones.yaml
+
+# Scripts
+#script: !include_dir_merge_named script
+
+# Devices
+sensor: !include sensors.yaml
+cover: !include covers.yaml
+
+# Groups
+group: !include groups.yaml
+
+# Automation
+#automation: !include_dir_merge_list automation
+
+# Input
+input_boolean:
+
+  welcome_music:
+    name: Música de Bienvenida
+    initial: on
+    icon: mdi:music-circle
+  welcome_report:
+    name: Informe de Bienvenida
+    initial: on
+    icon: mdi:file-chart
+  periodic_report:
+    name: Informe Periódico
+    initial: on
+    icon: mdi:file-chart
+  periodic_time:
+    name: Informe Horario
+    initial: on
+    icon: mdi:file-chart
+  warnings_enabled:
+    name: Avisos
+    initial: on
+    icon: mdi:account-alert
+  leaving_media_stop:
+    name: Apagar Medios al Salir
+    initial: on
+    icon: mdi:stop
+
+
+  light_hall:
+    name: Entrada
+    initial: off
+    icon: mdi:lightbulb
+  light_living_door:
+    name: Salón (Puerta)
+    initial: off
+    icon: mdi:lightbulb
+  light_living_window:
+    name: Salón (Ventana)
+    initial: off
+    icon: mdi:lightbulb
+  light_room:
+    name: Habitación
+    initial: off
+    icon: mdi:lightbulb
+  light_bathroom:
+    name: Baño
+    initial: off
+    icon: mdi:lightbulb
+  light_homeoffice:
+    name: Estudio
+    initial: off
+    icon: mdi:lightbulb
+  light_kichen:
+    name: Cocina
+    initial: off
+    icon: mdi:lightbulb
+
+  heater:
+    name: Calefacción
+    initial: off
+    icon: mdi:radiator
+
+input_select:
+
+  music_playlist:
+    name: Playlist
+    options:
+     - Dinámica
+     - Más reproducidas
+     - Más valoradas
+     - Modernas (>2000)
+     - Modernas (>2006)
+     - Mazinger
+    initial: Dinámica
+    icon: mdi:library-music
+
+
+

@@ -1,0 +1,23 @@
+# TV HASS Module
+#
+# Provides automation for TV
+
+media_player:
+
+  - platform: lg_netcast
+    #name: tvlg
+    host: 192.168.0.31
+    access_token: !secret mediaplayer_tvlg
+
+automation:
+
+  - alias: Stop Music on TV
+    trigger:
+      - platform: state
+        entity_id: media_player.lg_tv_remote
+        to: 'playing'
+    action:
+      - service: media_player.media_pause
+        entity_id:
+          - media_player.clementine_remote
+

@@ -1,0 +1,19 @@
+
+- name: Home
+  latitude: !secret home_lat
+  longitude: !secret home_lon
+  radius: 30
+  icon: mdi:home
+
+- name: Trabajo
+  latitude:
+  longitude:
+  radius: 250
+  icon: mdi:worker
+
+- name: Finca
+  latitude:
+  longitude:
+  radius: 85
+  icon: mdi:rocket
+

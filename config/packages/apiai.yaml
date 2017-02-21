@@ -1,0 +1,94 @@
+# Api.ai Integration HASS Module
+#
+# Provides entry point "intents" for api.ai
+
+# API.AI integration (conversation AI)
+
+shell_command:
+  #apiai_query: ext/apiai/cli/apiai-client.py -a AUTH_TOKEN "{{ query }}"
+  apiai_query: !secret apiai_query_command
+
+
+apiai:
+
+  intents:
+    music_stop:
+      async_action: True
+      action:
+        - service: media_player.media_pause
+          entity_id:
+            - media_player.clementine_remote
+    music_play:
+      async_action: True
+      action:
+        - service: media_player.media_play
+          entity_id:
+            - media_player.clementine_remote
+
+    music_next:
+      async_action: True
+      action:
+        - service: media_player.media_next_track
+          entity_id:
+            - media_player.clementine_remote
+    music_previous:
+      async_action: True
+      action:
+        - service: media_player.media_previous_track
+          entity_id:
+            - media_player.clementine_remote
+
+    report_home:
+      async_action: True
+      action:
+        - service: script.home_report
+
+    media_volume_set:
+      async_action: True
+      action:
+        - service: media_player.volume_set
+          entity_id:
+            - media_player.clementine_remote
+          data_template:
+            volume_level: "{{ float(number) / 100.0 }}"
+    media_volume_up:
+      async_action: True
+      action:
+        - service: media_player.volume_set
+          entity_id:
+            - media_player.clementine_remote
+          data_template:
+            volume_level: "{{ float(states.media_player.clementine_remote.attributes.volume_level) * 1.30 }}"
+    media_volume_down:
+      async_action: True
+      action:
+        - service: media_player.volume_set
+          entity_id:
+            - media_player.clementine_remote
+          data_template:
+            volume_level: "{{ float(states.media_player.clementine_remote.attributes.volume_level) * 0.60 }}"
+
+    media_track_query:
+      speech: "Este tema es: {{ states.media_player.clementine_remote.attributes.media_title }} de {{ states.media_player.clementine_remote.attributes.media_artist }}."
+      async_action: False
+
+    alarm_clock_set:
+      async_action: True
+      action:
+        - service: input_slider.select_value
+          data_template:
+            entity_id: input_slider.alarm_hour
+            value: '{{ time.split(":")[0] }}'
+        - service: input_slider.select_value
+          data_template:
+            entity_id: input_slider.alarm_minute
+            value: '{{ time.split(":")[1] }}'
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.alarm_enabled
+
+    alarm_clock_query:
+      speech: 'La alarma está {% if states.input_boolean.alarm_enabled.state == "on" %} puesta para las {{ states.sensor.template_alarm_time.state }} {% else %} desactivada {% endif %}.'
+      async_action: False
+
+

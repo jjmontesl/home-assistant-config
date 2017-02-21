@@ -1,0 +1,15 @@
+
+
+# Temperature
+
+- platform: random
+  name: Temperatura Salón
+  minimum: 16
+  maximum: 29
+  unit_of_measurement: 'ºC'
+
+- platform: random
+  name: Temperatura Habitación
+  minimum: 16
+  maximum: 29
+  unit_of_measurement: 'ºC'

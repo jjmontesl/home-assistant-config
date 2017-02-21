@@ -1,0 +1,39 @@
+# Presence HASS Module
+#
+# Scripts and automations for "leaving home" event
+
+
+automation:
+  - alias: Notify Leave Home
+    trigger:
+      platform: state
+      entity_id: device_tracker.jmobile
+      from: 'home'
+      to: 'not_home'
+    action:
+      - service: script.leaving_procedure
+
+script:
+
+  leave_media_stop:
+    # Stop media when leaving
+    sequence:
+      - condition: state
+        entity_id: input_boolean.leaving_media_stop
+        state: 'on'
+
+      # Reset music volume to profile default
+      - service: media_player.media_pause
+        entity_id:
+          - media_player.clementine_remote
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.clementine_remote
+        data_template:
+          volume_level: "{{ states.input_slider.profile_volume.state }}"
+
+  leaving_procedure:
+    sequence:
+
+      - service: script.leave_media_stop
+

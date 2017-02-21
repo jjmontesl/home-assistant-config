@@ -1,0 +1,19 @@
+# Internet Sites HASS Module
+#
+# Monitoring of internet resources.
+
+sensor:
+
+  # HTTP Probes
+
+  - platform: scrape
+    name: Example Scrape
+    resource: "http://www.somesite.com"
+    select: ".heading h1"
+  - platform: template
+    sensors:
+      template_example_web:
+        friendly_name: Example Web
+        value_template: '{{ "Up" if states.sensor.example_scrape.state == "TextToMatch" else "Down" }}'
+        unit_of_measurement: ''
+

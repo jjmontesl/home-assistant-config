@@ -1,0 +1,25 @@
+# Tracking HASS Module
+#
+# Manages device and person tracking.
+
+# Tracking
+
+device_tracker:
+
+  - platform: nmap_tracker
+    name: nmap
+    hosts: 192.168.0.0/24
+    #scan_interval: 30
+    home_interval: 5
+    exclude:
+     - 192.168.0.21
+     #- 172.0.0.0/8
+     #- 10.0.0.0/8
+
+  - platform: ping
+    name: ping
+    hosts:
+      jlaptop: 192.168.0.21
+
+  - platform: gpslogger
+    name: gpslogger

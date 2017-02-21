@@ -1,0 +1,10 @@
+# Transport / Traffic HASS Module
+#
+# Home cams
+
+camera:
+
+  - platform: local_file
+    file_path: "tmp/webcam-snapshot.jpg"
+    name: Webcam
+

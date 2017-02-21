@@ -1,0 +1,20 @@
+# Working HASS Module
+#
+# Provides a sensor reporting if today is a working day,
+# and another indicating if time is within quiet hours.
+
+binary_sensor:
+
+  - platform: template
+    sensors:
+      working_day:
+        value_template: '{{ not now().isoweekday() in (6,7) }}'
+        friendly_name: 'Día Laboral'
+        entity_id: sensor.time
+
+  - platform: template
+    sensors:
+      quiet_time:
+        value_template: '{{ ( (states.sensor.working_day.state == "on" and (now().hour < 9 or now().hour >= 22)) or (now().hour < 10) ) }}'
+        friendly_name: 'Horario Nocturno'
+        entity_id: sensor.time

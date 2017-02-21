@@ -1,0 +1,38 @@
+# Presence HASS Module
+#
+# Scripts and automations for "arriving work" event
+
+automation:
+
+  - alias: Notify Arrival Work
+    trigger:
+      platform: state
+      entity_id: device_tracker.jmobile
+      to: 'Trabajo'
+
+    action:
+      - service: script.work_arrive
+
+script:
+
+  work_arrive:
+    sequence:
+
+      - service: script.notify
+        data_template:
+          notify_voice: False
+          notify_mobile: True
+          notify_text: >
+            Llegada al trabajo: {{ now().strftime("%H:%M") }}.
+
+            Correos pendientes: {{ states.sensor.emails_trabajo.state }}.
+
+            Hora de salida: {{ (as_timestamp(now()) + (60 * 60 * 9)) | timestamp_custom("%H:%M") }}.
+
+
+            Temperatura en Vigo: {{ states.sensor.yr_temperature.state | round }} grados.
+
+            Puesta de Sol: {{ as_timestamp(strptime(states.sun.sun.attributes['next_setting'], "%Y-%m-%dT%H:%M:%S+00:00")) | timestamp_custom("%H:%M")  }}.
+
+            Siguiente evento: {{ states.sensor.template_calendar_work.state }}
+

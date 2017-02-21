@@ -1,0 +1,64 @@
+
+include:
+
+  #domains:
+  #  - device_tracker
+
+  entities:
+
+    # Media Player
+    - media_player.kodi
+    - media_player.lg_tv_remote
+    - media_player.clementine_remote
+
+    # Tracking
+    - device_tracker.jmobile
+    - device_tracker.jtablet
+    - device_tracker.jlaptop
+
+    - sensor.casa__trabajo
+    - sensor.trabajo__casa
+    - sensor.casa__finca
+
+    - proximity.j_home
+    - sensor.distance_to_home_mean
+    - sensor.j__casa
+
+    # Internet
+    - sensor.external_ip
+
+    - sensor.template_anastutia_web
+    - sensor.template_centum_rt_web
+    - sensor.template_centum_userportal_web
+
+    # Monitoring
+    - sensor.cpu_use
+    - sensor.cpu_temp
+    - sensor.disk_use_
+    - sensor.disk_use_home
+    - sensor.ram_free
+    - sensor.ram_use_percent
+
+    - sensor.jmobile_battery
+
+    # Weather
+    - sensor.yr_symbol
+    - sensor.yr_temperature
+    - sensor.yr_cloudiness
+    - sensor.yr_humidity
+    - sensor.yr_precipitation
+    - sensor.yr_wind_speed
+    - sensor.yr_wind_direction
+
+    #- cover.music_next__playpause__prev
+    #- switch.music_playpause
+
+    #- sensor.abfahrt_monbijoubrucke
+    #- sensor.next_departure
+    #- sensor.music_title
+    #- sensor.music_artist
+    #- sensor.since_last_boot
+    #- sensor.last_boot
+
+    #- sensor.received_wlan1
+    #- sensor.sent_wlan1

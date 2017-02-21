@@ -1,0 +1,14 @@
+# Weather HASS Module
+#
+# Provides Work related information
+
+
+sensor:
+
+  - platform: imap
+    name: Emails Trabajo
+    server: !secret work_imap_host
+    port: 993
+    username: !secret work_imap_username
+    password: !secret work_imap_password
+

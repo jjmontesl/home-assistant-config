@@ -1,0 +1,36 @@
+#
+#  domains:
+#    - automation
+#    - camera
+#    - device_tracker
+#    - group
+#    - sun
+#    - updater
+#    - weblink
+#
+#  entities:
+#    - sensor.date
+#    - sensor.time
+#    - sensor.cpu_speed
+#    - sensor.quote
+
+include:
+
+  domains:
+
+    - device_tracker
+
+  entities:
+
+    - media_player.kodi
+    - media_player.lg_tv_remote
+    - media_player.clementine_remote
+
+
+    # Internet
+    - sensor.external_ip
+
+    - sensor.template_anastutia_web
+    - sensor.template_centum_rt_web
+    - sensor.template_centum_userportal_web
+

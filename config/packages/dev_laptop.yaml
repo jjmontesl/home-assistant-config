@@ -1,0 +1,64 @@
+# System HASS Module
+#
+# Provides local system monitoring and info.
+
+media_player:
+
+  - platform: kodi
+    #name: laptop
+    host: !secret laptop_ip
+
+  - platform: clementine
+    #name: clementine
+    host: !secret laptop_ip
+
+  # Used only for TTS, data not recorded
+  - platform: mpd
+    name: mpdlaptop
+    host: !secret laptop_ip
+    port: 6600
+    password: !secret mediaplayer_mpdlaptop
+
+
+sensor:
+  - platform: glances
+    name: Laptop Monitoring
+    host: !secret laptop_ip
+    resources:
+      - 'disk_use_percent'
+      - 'disk_free'
+      - 'memory_use_percent'
+      - 'memory_free'
+      - 'swap_use_percent'
+      - 'swap_free'
+      - 'processor_load'
+      #- 'temperature_core'
+      #- 'process_running'
+      #- 'process_total'
+      #- 'process_thread'
+      #- 'process_sleeping'
+
+
+#sensor:
+
+#  - platform: command_line
+#    name: CPU Temp
+#    command: "cat /sys/class/thermal/thermal_zone1/temp"
+#    unit_of_measurement: "ºC"
+#    value_template: '{{ value | multiply(0.001) }}'
+#
+#  - platform: systemmonitor
+#    resources:
+#    - type: disk_use_percent
+#      arg: /home
+#    - type: disk_use_percent
+#      arg: /
+#    - type: memory_free
+#    - type: memory_use_percent
+#    - type: processor_use
+#    - type: since_last_boot
+#    - type: network_in
+#      arg: eth0
+#    - type: network_out
+#      arg: eth0
+

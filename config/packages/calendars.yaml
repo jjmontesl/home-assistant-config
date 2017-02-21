@@ -1,0 +1,34 @@
+# Calendars HASS Module
+#
+# Provides access to Google Calendars
+
+sensor:
+
+  - platform: template
+    sensors:
+      template_calendar_jjmontes:
+        #{{ states.calendar.jose_juan_montes.attributes.start_time }}:
+        value_template: >
+          {{ strptime(states.calendar.jose_juan_montes.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %d de %B, a las %H:%M") }}:
+          {{ states.calendar.jose_juan_montes.attributes.message }}
+        friendly_name: Principal
+        unit_of_measurement: ''
+        # TODO: entity_id (to trigger changes)
+
+  - platform: template
+    sensors:
+      template_calendar_cumpleanos_j:
+        value_template: >
+          {{ strptime(states.calendar.cumpleanos_j.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %d de %B, a las %H:%M") }}:
+          {{ states.calendar.cumpleanos_j.attributes.message }}
+        friendly_name: Cumpleaños
+        unit_of_measurement: ''
+
+  - platform: template
+    sensors:
+      template_calendar_work:
+        value_template: >
+          {{ strptime(states.calendar.work.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %d de %B, a las %H:%M") }}:
+          {{ states.calendar.work.attributes.message }}
+        friendly_name: Trabajo
+        unit_of_measurement: ''

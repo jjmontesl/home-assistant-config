@@ -6,12 +6,21 @@
 .pydevproject
 .settings/
 
+/env
+
 /config/deps
+/config/tts
+
 /config/secrets.yaml
 /config/google_calendars.yaml
 /config/known_devices.yaml
-/config/internet_sites.yaml
 /config/zones.yaml
+/config/packages/traffic.yaml
+/config/packages/internet_sites.yaml
+
+/config/.HA_VERSION
+/config/.google.token
+/config/.uuid
 
 /home-assistant
 /home-assistant.github.io
@@ -19,3 +28,4 @@
 /TODO.txt
 
 /build
+

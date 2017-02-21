@@ -1,0 +1,93 @@
+# Notifications HASS Module
+#
+# Provides a way to notify people, via voice or messaging as appropriate
+
+# Notify: via voice or text
+
+script:
+
+  notify:
+    sequence:
+
+      # Ignore warnings according to setting is off
+      #- condition: template
+      #  value_template: "{{ True if (not is_warning or states.input_boolean.warnings_enabled.state == 'on') else False }}"
+
+      # Read notification via TTS
+      - service: script.turn_off
+        data:
+          entity_id: script.notify_voice
+      - service: script.notify_voice
+        data_template:
+          notify_text: "{{ notify_text }}"
+          notify_voice: "{{ notify_voice }}"
+
+      - wait_template: "{{ states.script.notify_voice.state == 'off' }}"
+
+      # Send a notification via telegram
+
+      - condition: template
+        value_template: '{{ notify_mobile if notify_mobile else False}}'
+
+      - service: notify.telegram_notifications
+        data_template:
+          message: "{{ notify_text }}"
+
+
+  # TTS notification (local)
+  #
+  # Parameters:
+  #   notify_text
+  notify_voice:
+    sequence:
+
+      # Notify depending of notify_voice
+      - condition: template
+        value_template: "{{ notify_voice if notify_voice else (states.device_tracker.jmobile.state == 'home') }}"
+
+      # Reduce Clementine volume, ensure MPD volume is high.
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.mpd
+        data_template:
+          volume_level: 1.00
+
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.clementine_remote
+        data_template:
+          volume_level: "{{ 0.5 * float(states.input_slider.profile_volume.state) }}"
+      - delay: 00:00:01
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.clementine_remote
+        data_template:
+          volume_level: "{{ 0.15 * float(states.input_slider.profile_volume.state) }}"
+      - delay: 00:00:01
+
+      # Send the message to MPD
+      - service: tts.picotts_say
+        entity_id: media_player.mpd
+        data_template:
+          message: "{{ notify_text }}"
+          #cache: true
+
+      #- delay: '{{ voice_delay if voice_delay else "00:00:15" }}'
+      - delay: 00:00:05
+      - wait_template: "{{ states.media_player.mpd.state == 'off' }}"
+
+      # Restore Clementine volume
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.clementine_remote
+        data_template:
+          volume_level: "{{ 0.50 * float(states.input_slider.profile_volume.state) }}"
+      - delay: 00:00:01
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.clementine_remote
+        data_template:
+          volume_level: "{{ 1.00 * float(states.input_slider.profile_volume.state) }}"
+
+
+

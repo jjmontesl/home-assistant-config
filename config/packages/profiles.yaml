@@ -1,0 +1,185 @@
+# Profiles HASS Module
+#
+# Provides several profiles that manage settings.
+
+# - Standard:
+#     Uses reports, alarms, etc according to configuration.
+# - Relax:
+#     Disables reports, changes volumes, starts hue. Disables welcome music. Shut down PC if not in use? (wake on lan?)
+# - Sleep:
+#     Disable all welcome messages. Disable texting and voice messages.
+#     Keep alarm clock on. Keep room covers down and don't move the other.
+#     Disable mode automatically if alarm clock triggers.
+# - Guests:
+#     Disables automatic shutdown of media players and lights on leaving the house, or when turning on other mediaplayers.
+#     Keeps covers open.
+# - Nobody:
+#     Mode when everyone is out (temporarily). Heating and such keep working. Covers are not moved (may be summer?).
+# - Away:
+#     When on holidays or away from home. Disables alarm clock, reports, etc, keep media shut down. Heating, covers.
+#     When back, emits a permanent notification and changes mode to Standard?
+
+input_select:
+  automation_preset:
+    name: Perfil Home
+    options:
+     - Normal
+     - Chillout
+     - Durmiendo
+     - Invitados
+     - Nadie
+     - Ausencia
+    initial: Normal
+    icon: mdi:account-location
+
+input_slider:
+  profile_volume:
+    name: Volumen General
+    initial: 0.5
+    min: 0.0
+    max: 1.0
+    step: 0.05
+    icon: mdi:volume-medium
+
+# Sets a bunch of configuration settings at once, based on parameters
+script:
+
+  profile_setconfig:
+    sequence:
+
+      - service_template: "input_boolean.{{ 'turn_on' if welcome_music == 'True' else 'turn_off' }}"
+        entity_id: input_boolean.welcome_music
+      - service_template: "input_boolean.{{ 'turn_on' if welcome_report == 'True' else 'turn_off' }}"
+        entity_id: input_boolean.welcome_report
+      - service_template: "input_boolean.{{ 'turn_on' if periodic_report == 'True' else 'turn_off' }}"
+        entity_id: input_boolean.periodic_report
+      - service_template: "input_boolean.{{ 'turn_on' if leaving_media_stop == 'True' else 'turn_off' }}"
+        entity_id: input_boolean.leaving_media_stop
+      - service_template: "input_boolean.{{ 'turn_on' if warnings_enabled == 'True' else 'turn_off' }}"
+        entity_id: input_boolean.warnings_enabled
+
+      - service: input_slider.select_value
+        entity_id: input_slider.profile_volume
+        data_template:
+          value: '{{ profile_volume }}'
+
+automation:
+
+  # Profile settings
+
+  - alias: Profile Standard
+    trigger:
+      platform: state
+      entity_id: input_select.automation_preset
+      to: 'Normal'
+    action:
+      - service: script.profile_setconfig
+        data_template:
+          welcome_music: True
+          welcome_report: True
+          periodic_report: True
+          warnings_enabled: True
+          leaving_media_stop: True
+          profile_volume: 0.5
+
+  - alias: Profile Chillout
+    trigger:
+      platform: state
+      entity_id: input_select.automation_preset
+      to: 'Chillout'
+    action:
+      - service: script.profile_setconfig
+        data_template:
+          welcome_music: True
+          welcome_report: False
+          periodic_report: False
+          warnings_enabled: False
+          leaving_media_stop: True
+          profile_volume: 0.3
+
+  - alias: Profile Sleeping
+    trigger:
+      platform: state
+      entity_id: input_select.automation_preset
+      to: 'Durmiendo'
+    action:
+      - service: script.profile_setconfig
+        data_template:
+          welcome_music: False
+          welcome_report: False
+          periodic_report: False
+          warnings_enabled: False
+          leaving_media_stop: True
+          profile_volume: 0.1
+
+  - alias: Profile Guests
+    trigger:
+      platform: state
+      entity_id: input_select.automation_preset
+      to: 'Invitados'
+    action:
+      - service: script.profile_setconfig
+        data_template:
+          welcome_music: True
+          welcome_report: False
+          periodic_report: False
+          warnings_enabled: False
+          leaving_media_stop: False
+          profile_volume: 0.6
+
+  - alias: Profile Empty
+    trigger:
+      platform: state
+      entity_id: input_select.automation_preset
+      to: 'Nadie'
+    action:
+      - service: script.profile_setconfig
+        data_template:
+          welcome_music: True
+          welcome_report: True
+          periodic_report: False
+          warnings_enabled: False
+          leaving_media_stop: True
+          profile_volume: 0.2
+
+  - alias: Profile Away
+    trigger:
+      platform: state
+      entity_id: input_select.automation_preset
+      to: 'Fuera'
+    action:
+      - service: script.profile_setconfig
+        data_template:
+          welcome_music: False
+          welcome_report: False
+          periodic_report: False
+          warnings_enabled: False
+          leaving_media_stop: True
+          profile_volume: 0.05
+
+#  # Profile change
+#
+#  - alias: Profile Change
+#    trigger:
+#        platform: state
+#        entity_id: input_select.automation_preset
+#
+#    action:
+#      - service: script.notify
+#        data_template:
+#          notify_text: "Perfil: {{ states.input_select.automation_preset.state }}'"
+#          notify_mobile: False
+#          #is_warning: True
+
+  # Profile volume automation
+  - alias: Profile Volume Change
+    trigger:
+      - platform: state
+        entity_id: input_slider.profile_volume
+    action:
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.clementine_remote
+        data_template:
+          volume_level: "{{ states.input_slider.profile_volume.state }}"
+
