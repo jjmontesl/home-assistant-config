@@ -1,0 +1,7 @@
+# This file must be deployed to /etc/cron.d
+
+# TODO: Replace with a call to a python3 script that does the capturing and rotating, possibly detection
+
+# Take a camera snapshot (overwrite)
+*/5 * * * * homeassistant /srv/home-assistant/ext/webcam/webcam.py >/dev/null 2>&1
+

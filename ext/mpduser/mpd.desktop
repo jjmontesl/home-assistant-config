@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=MPD
+Type=Application
+Exec=mpd /home/jjmontes/git/hass/ext/mpduser/mpd.conf
+Terminal=false
+Icon=mpd
+Comment=Music Player Daemon.
+NoDisplay=true
+Categories=Utility;
+

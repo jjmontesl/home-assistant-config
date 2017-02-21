@@ -22,6 +22,8 @@
 /config/.google.token
 /config/.uuid
 
+/ext/mpduser/mpd.conf
+
 /home-assistant
 /home-assistant.github.io
 

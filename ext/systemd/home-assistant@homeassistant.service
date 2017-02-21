@@ -1,0 +1,16 @@
+[Unit]
+Description=Home Assistant
+After=network.target
+
+[Service]
+Type=simple
+User=homeassistant
+
+WorkingDirectory=/srv/home-assistant
+Environment=VIRTUAL_ENV="/srv/home-assistant/env"
+Environment=PATH="$VIRTUAL_ENV/env/bin:/usr/sbin:/sbin:/bin:/usr/bin:/usr/local/bin:$PATH"
+ExecStart=/srv/home-assistant/env/bin/hass -c config
+
+[Install]
+WantedBy=multi-user.target
+

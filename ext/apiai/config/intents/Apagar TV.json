@@ -1,0 +1,50 @@
+{
+  "userSays": [
+    {
+      "id": "4c7ef892-7380-43b8-9954-3a09e8c703a3",
+      "data": [
+        {
+          "text": "Apaga la televisión"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "d8c56d23-d88c-4b57-8b9e-8b60cb304976",
+      "data": [
+        {
+          "text": "Apaga la tele"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "961598e4-d247-4255-b166-a883ab1c82e1",
+  "name": "Apagar TV",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "script.shutdown_tv",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Apagando televisión.",
+            "Apagando TV."
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,63 @@
+{
+  "userSays": [
+    {
+      "id": "17dfda12-c8d2-4722-a31a-feeba5fb44db",
+      "data": [
+        {
+          "text": "Informe de la casa"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "782cf754-25d5-46cc-9da8-661cb57a7d03",
+      "data": [
+        {
+          "text": "Dame "
+        },
+        {
+          "text": "un",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " informe"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "60633f76-17d2-4ff2-8a1e-c7b521337e05",
+  "name": "Informe",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "report_home",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@sys.time",
+          "name": "time",
+          "value": "$time",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

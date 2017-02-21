@@ -1,0 +1,67 @@
+{
+  "userSays": [
+    {
+      "id": "a7638eeb-a369-49b7-88ab-f95521c499b1",
+      "data": [
+        {
+          "text": "Baja los decibelios"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f5370d12-1d4c-495d-b2c2-4b5937897868",
+      "data": [
+        {
+          "text": "Reduce el volumen"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "62875ada-7b91-4703-99e2-79c45f80e83a",
+      "data": [
+        {
+          "text": "Baja la música"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f669934a-e20a-4af6-bb8b-c6bbb398c108",
+      "data": [
+        {
+          "text": "Baja el volumen"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "4a73e3c0-ce3b-4804-98c4-634066d6efee",
+  "name": "Media Volume Down",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "media_volume_down",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

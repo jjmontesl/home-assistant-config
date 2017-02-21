@@ -1,0 +1,34 @@
+{
+  "userSays": [],
+  "id": "aa680109-8086-4c20-bdfb-154e2ad225cf",
+  "name": "Default Fallback Intent",
+  "auto": false,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "input.unknown",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "No te he entendido.",
+            "Repite.",
+            "¿Disculpa?",
+            "¿Decías?",
+            "¿Cómo?",
+            "¿Perdona?",
+            "¿Qué?"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": true,
+  "events": []
+}

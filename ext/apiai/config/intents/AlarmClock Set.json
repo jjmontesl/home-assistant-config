@@ -1,0 +1,114 @@
+{
+  "userSays": [
+    {
+      "id": "e92bf2ec-f99a-40cb-8f15-7a16a11e4d17",
+      "data": [
+        {
+          "text": "Avísame "
+        },
+        {
+          "text": "a las 10:25",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "ebbd5b84-5813-48b7-8333-44152bd1bdef",
+      "data": [
+        {
+          "text": "Despiértame "
+        },
+        {
+          "text": "a las doce y media",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "184c1cef-badf-4426-97c1-d34e79de0865",
+      "data": [
+        {
+          "text": "Pon "
+        },
+        {
+          "text": "una",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " alarma "
+        },
+        {
+          "text": "mañana a las 9",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "05957ade-f373-4cd3-a6f2-188d424c0534",
+      "data": [
+        {
+          "text": "Pon la alarma a las "
+        },
+        {
+          "text": "10:15",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "f9ca37af-d256-4b85-a0c0-08f2584997a3",
+  "name": "AlarmClock Set",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "alarm_clock_set",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@sys.time",
+          "name": "time",
+          "value": "$time",
+          "prompts": [
+            "¿A qué hora?"
+          ],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Estableciendo alarma a las $time",
+            "Poniendo alarma a las $time",
+            "Alarma establecida para las $time"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,51 @@
+{
+  "userSays": [
+    {
+      "id": "6e3d3c09-ab5a-4409-9047-10298dc3d66a",
+      "data": [
+        {
+          "text": "Quita la música"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c0b78fbe-d9f1-428c-9f3b-3c36ea738105",
+      "data": [
+        {
+          "text": "Apaga la música"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5b6dd3a9-3e10-4425-a433-5e837b5dd431",
+  "name": "Music Stop",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "music_stop",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Apagando la música.",
+            "Música apagada.",
+            "De acuerdo: sin música."
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

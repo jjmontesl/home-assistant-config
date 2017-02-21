@@ -1,0 +1,83 @@
+{
+  "userSays": [
+    {
+      "id": "3e09a3f2-d57f-494d-b77e-82a5fa5063ec",
+      "data": [
+        {
+          "text": "Sube "
+        },
+        {
+          "text": "un poco",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " la música"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "426acf76-c613-4ff5-b07d-4001b82537cf",
+      "data": [
+        {
+          "text": "Sube la música"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0b4cf1bb-f535-4e5f-994b-0374a5981f5d",
+      "data": [
+        {
+          "text": "Sube el volumen"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "65823e05-d030-443a-9e36-2493f9fedf09",
+      "data": [
+        {
+          "text": "Sube "
+        },
+        {
+          "text": "un",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " poco el volumen"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5510a641-3236-4337-8cce-8940b8597f86",
+  "name": "Media Volume Up",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "media_volume_up",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

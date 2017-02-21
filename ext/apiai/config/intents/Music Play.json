@@ -1,0 +1,60 @@
+{
+  "userSays": [
+    {
+      "id": "4239f654-3d9e-48e1-bf70-6d4b4df78025",
+      "data": [
+        {
+          "text": "Pon musiqueo"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "29ff0683-2a1f-4884-a37a-06ae3cc8da95",
+      "data": [
+        {
+          "text": "Enciende la música"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "5e40a310-d683-4c24-847d-dfed996a1e2d",
+      "data": [
+        {
+          "text": "Pon música"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "2ae6ef2d-4110-41e2-a199-87248168de61",
+  "name": "Music Play",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "music_play",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Activando música.",
+            "Un poco de música..."
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

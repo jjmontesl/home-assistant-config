@@ -1,0 +1,80 @@
+{
+  "userSays": [
+    {
+      "id": "55021fa6-758a-47e4-8682-d638ad052d26",
+      "data": [
+        {
+          "text": "Pon el último tema"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "4e867f6c-4113-49d3-8270-bc6cd7b2ff9e",
+      "data": [
+        {
+          "text": "Pon el tema que estaba sonando"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "5d6a5624-1265-4d64-9888-905030c4884c",
+      "data": [
+        {
+          "text": "Pon otra vez la canción anterior"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "089db87a-8686-4f47-bb52-339fdf038e06",
+      "data": [
+        {
+          "text": "Pon otra vez esa canción"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "13cf08bd-ad76-4196-8f84-25040ad06200",
+      "data": [
+        {
+          "text": "Pon la canción anterior"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "dfe48ade-8e13-43b7-8611-95228e140403",
+  "name": "Music Previous",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "music_previous",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Volviendo al tema anterior",
+            "Poniendo de nuevo el último tema"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

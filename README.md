@@ -3,7 +3,8 @@
 Introduction
 ============
 
-This is my configuration of Home Assistant. It may serve as a *cookbook* from which recipes can be taken.
+This is my configuration of [Home Assistant](https://home-assistant.io/).
+It may serve as a *cookbook* from which recipes can be taken.
 
 It is a package based configuration. The configuration is grouped into packages that can
 be easily reused. In any case, you'll need to adapt the configuration to suit your needs and the
@@ -111,6 +112,12 @@ Add a copy of the Clementine desktop link (/usr/share/applications/) to ~/.confi
 **MPD**
 
 In order to have a separate stream for Text-to-Speech notifications, MPD has to be installed and configured.
+
+
+Configuration for Android
+-------------------------
+
+Install GPSLogger as explained in Home Assistant: https://home-assistant.io/components/device_tracker.gpslogger/
 
 
 FAQ

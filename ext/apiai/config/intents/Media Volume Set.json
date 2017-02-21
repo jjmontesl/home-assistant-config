@@ -1,0 +1,127 @@
+{
+  "userSays": [
+    {
+      "id": "7f914e6c-5f4b-482e-ac9b-17bb7759220d",
+      "data": [
+        {
+          "text": "Pon el volumen al "
+        },
+        {
+          "text": "20",
+          "alias": "number",
+          "meta": "@sys.number",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f5c3b33d-c2d2-48b7-8270-b6dd1e1c749d",
+      "data": [
+        {
+          "text": "Baja el sonido al "
+        },
+        {
+          "text": "10",
+          "alias": "number",
+          "meta": "@sys.number",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "eb185a3d-789a-48c3-86f2-c737232d7963",
+      "data": [
+        {
+          "text": "Sube el sonido al "
+        },
+        {
+          "text": "50",
+          "alias": "number",
+          "meta": "@sys.number",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "39789750-1ea9-4604-b385-b96fe0fc7656",
+      "data": [
+        {
+          "text": "Volumen al "
+        },
+        {
+          "text": "30",
+          "alias": "number",
+          "meta": "@sys.number",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "b53976a4-835f-4e6a-8c07-bbce761cb89a",
+      "data": [
+        {
+          "text": "Pon el volumen al "
+        },
+        {
+          "text": "80",
+          "alias": "number",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "por cien",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "bc1fe1f1-f2ec-46f7-8cc2-ca6939058214",
+  "name": "Media Volume Set",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "media_volume_set",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@sys.number",
+          "name": "number",
+          "value": "$number",
+          "prompts": [
+            "¿Cuanto volumen?",
+            "¿Volumen a qué valor?"
+          ],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

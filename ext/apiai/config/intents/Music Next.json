@@ -1,0 +1,100 @@
+{
+  "userSays": [
+    {
+      "id": "3bd77164-9ba3-48e7-b86f-2297ae6e9c56",
+      "data": [
+        {
+          "text": "Pon otro tema"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "75d6d2c7-422f-4b25-8f39-3cdd482d63ff",
+      "data": [
+        {
+          "text": "Pon otra canción"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "794a631e-2143-4509-83f3-d93b1b10e560",
+      "data": [
+        {
+          "text": "Pasa a la canción anterior"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "3c041c0d-f2b4-4446-b6fe-ff6dbc948772",
+      "data": [
+        {
+          "text": "Canción siguiente"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0efaa5a6-1bfc-4efb-84a9-5a771c98ec12",
+      "data": [
+        {
+          "text": "Salta este tema"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "92905d37-3cc8-4396-bf84-8ceccef1df80",
+      "data": [
+        {
+          "text": "Pasa esta canción"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "bbcf33f3-83ee-460d-8490-040d91a2d3a9",
+      "data": [
+        {
+          "text": "Salta esta canción"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5734a026-5ac3-42e9-9080-1f7b793424c7",
+  "name": "Music Next",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "music_next",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Saltando la canción",
+            "Pasando al siguiente tema"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}
