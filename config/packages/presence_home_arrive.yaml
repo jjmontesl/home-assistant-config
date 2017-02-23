@@ -55,7 +55,7 @@ script:
           notify_text: "Hola Jota ¡bienvenido a casa!"
           notify_mobile: False
 
-      - delay: 00:00:15
+      - delay: 00:00:08
 
       - service: script.welcome_report
 

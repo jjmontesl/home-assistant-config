@@ -46,7 +46,14 @@ script:
           notify_mobile: False
           notify_text: >
             Son las {{ now().strftime("%H:%M") }}.
-            El sol se pondrá a las {{ as_timestamp(strptime(states.sun.sun.attributes['next_setting'], "%Y-%m-%dT%H:%M:%S+00:00")) | timestamp_custom("%H:%M")  }}.
+
+            {% set next_sunset = strptime(states.sun.sun.attributes['next_setting'], "%Y-%m-%dT%H:%M:%S") %}
+            {% set next_rising = strptime(states.sun.sun.attributes['next_rising'], "%Y-%m-%dT%H:%M:%S") %}
+            {% if next_sunset < next_rising %}
+              El sol se pondrá a las {{ as_timestamp(strptime(states.sun.sun.attributes['next_setting'], "%Y-%m-%dT%H:%M:%S")) | timestamp_custom("%H:%M")  }}.
+            {% else %}
+              El sol saldrá a las {{ as_timestamp(strptime(states.sun.sun.attributes['next_rising'], "%Y-%m-%dT%H:%M:%S")) | timestamp_custom("%H:%M")  }}.
+            {% endif %}
 
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 

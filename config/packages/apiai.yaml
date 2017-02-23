@@ -8,6 +8,18 @@ shell_command:
   #apiai_query: ext/apiai/cli/apiai-client.py -a AUTH_TOKEN "{{ query }}"
   apiai_query: !secret apiai_query_command
 
+script:
+
+  apiai_response:
+
+    alias: API.AI Response Entry Point
+    sequence:
+      - service: script.notify
+        data_template:
+          notify_fade: False
+          notify_mobile: False
+          notify_text: >
+            {{ notify_text }}
 
 apiai:
 
