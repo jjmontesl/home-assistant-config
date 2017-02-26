@@ -1,0 +1,33 @@
+# System HASS Module
+#
+# Home Assistant general information
+
+sensor:
+
+  - platform: template
+    sensors:
+      ha_last_restart:
+        #entity_id: states.automation.hass_startup
+        friendly_name: 'HA Last Restart'
+        value_template: >
+          {% if states.automation.hass_startup and states.automation.hass_startup.attributes.last_triggered %}
+            {{ as_timestamp(states.automation.hass_startup.attributes.last_triggered) | timestamp_custom("%b %d %X") }}
+          {% else %}
+            Unknown
+          {% endif %}
+
+automation:
+
+- alias: HASS Startup
+  trigger:
+    platform: event
+    event_type: homeassistant_start
+  action:
+    - service: persistent_notification.create
+      data:
+        notification_id: hass_startup_notification
+        title: "Home Assistant Startup"
+        message: >
+          Home Assistant started at {{ as_timestamp(states.automation.hass_startup.attributes.last_triggered) | timestamp_custom("%b %d %X") }}.
+
+

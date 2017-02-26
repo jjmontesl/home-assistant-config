@@ -17,13 +17,14 @@ datetimeweather:
 dev_pi:
   name: Pi
   entities:
+    - switch.pi_display
     - sensor.cpu_use
     - sensor.cpu_temp
     - sensor.disk_use_
-    #- sensor.disk_use_home
     - sensor.ram_free
     - sensor.ram_use_percent
     - sensor.since_last_boot
+    - sensor.ha_last_restart
 
 dev_jmobile:
   name: J Mobile
@@ -34,13 +35,22 @@ dev_jmobile:
 dev_laptop:
   name: Laptop
   entities:
+    - switch.laptop_display
     - sensor.laptop_monitoring_cpu_load
     - sensor.laptop_monitoring_disk_free
     - sensor.laptop_monitoring_disk_use
+    #- sensor.laptop_monitoring_disk_home_free
+    #- sensor.laptop_monitoring_disk_home_use
     - sensor.laptop_monitoring_ram_free
     - sensor.laptop_monitoring_ram_use
     - sensor.laptop_monitoring_swap_free
     - sensor.laptop_monitoring_swap_use
+
+dev_tv:
+  name: TV
+  entities:
+    - script.dev_tv_turn_on
+    - media_player.lg_tv_remote
 
 mon_sites:
   name: Sites
@@ -156,15 +166,16 @@ default_view:
   view: True
   name: J Casa
   entities:
+    #- persistent_notification
     - group.room
     - group.homeoffice
     - group.living
     - group.profile
     - group.datetimeweather
     - group.lights
-    - media_player.kodi
-    - media_player.lg_tv_remote
+    - group.dev_tv
     - media_player.clementine_remote
+    - media_player.kodi
     #- media_player.mpd
     - group.tracking
     - group.lights

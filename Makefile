@@ -6,7 +6,7 @@
 BASE_DIR:=$(shell pwd)
 
 HASS_GIT=$(BASE_DIR)/../home-assistant
-HASS_BRANCH=dev
+HASS_BRANCH=dev-jhome
 
 INSTALL_HOST=pi@pi
 INSTALL_DIR=/srv/home-assistant
@@ -63,8 +63,9 @@ install-webcam:
 .PHONY: install-homeassistant
 install-homeassistant: install-virtualenv
 
-	sudo apt-get --yes --force-yes install nmap fortunes libttspico-utils fswebcam apiai
+	sudo apt-get --yes --force-yes install nmap fortunes libttspico-utils fswebcam
 
+	cd $(INSTALL_DIR) && . $(VIRTUALENV_ACTIVATE) && cd home-assistant && sudo python3 setup.py clean
 	cd $(INSTALL_DIR) && . $(VIRTUALENV_ACTIVATE) && cd home-assistant && sudo python3 setup.py install
 	chown -R homeassistant. $(INSTALL_DIR)
 
@@ -105,6 +106,7 @@ build-config: test
 build-hass:
 		
 	#mkdir -p $(BUILD_DIR)/hass-hass
+	rm -rf $(BUILD_DIR)/hass-hass
 	git clone -b $(HASS_BRANCH) $(HASS_GIT) $(BUILD_DIR)/hass-hass || true
 	rm -rf $(BUILD_DIR)/hass-hass/.git
 	

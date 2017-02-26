@@ -20,6 +20,8 @@ homeassistant:
   # Packages
   packages:
 
+    homeassistant: !include packages/homeassistant.yaml
+
     datetime: !include packages/datetime.yaml
     weather: !include packages/weather.yaml
     tracking: !include packages/tracking.yaml
@@ -51,12 +53,15 @@ homeassistant:
     webcams: !include packages/webcams.yaml
     traffic: !include packages/traffic.yaml
 
-    apiai: !include packages/apiai.yaml
+    conversation: !include packages/conversation.yaml
     profiles: !include packages/profiles.yaml
 
 
 # Show links to resources in log and frontend
 #introduction:
+
+# Configuration panel
+config:
 
 # Track the sun
 sun:
@@ -64,12 +69,10 @@ sun:
 # Enables the frontend
 frontend:
 
+# HTTP configuration
 http:
-  # Uncomment this to add a password (recommended!)
   api_password: !secret api_password
-
-  # Uncomment this if you are using SSL or running in Docker etc
-  # base_url: example.duckdns.org:8123
+  base_url: http://91.116.198.2:8123
 
 # Checks for available updates
 updater:
@@ -77,15 +80,6 @@ updater:
 
 # Discover some devices automatically
 discovery:
-
-# Allows you to issue voice commands in enabled browsers
-#conversation:
-conversation:
-  action:
-    service: shell_command.apiai_query
-    data_template:
-      query: "{{ text }}"
-
 
 # Log and debug
 #logger:
@@ -113,6 +107,15 @@ tts:
   - platform: picotts
     language: 'es-ES'
 
+# HDMI CEC Devices
+hdmi_cec:
+  #platform: media_player
+  devices:
+    TV: 0.0.0.0
+  #types:
+  #  hdmi_cec.hdmi_0: media_player
+
+
 # Calendar
 google:
   client_id: !secret google_calendar_client_id
@@ -124,6 +127,19 @@ notify telegram:
     name: Telegram Notifications
     api_key: !secret telegram_api_key
     chat_id: !secret telegram_chat_id
+
+telegram_webhooks:
+  api_key: !secret telegram_api_key
+  #  trusted_networks:
+  #    - 149.154.167.197/32
+  #    - 149.154.167.198/31
+  #    - 149.154.167.200/29
+  #    - 149.154.167.208/28
+  #    - 149.154.167.224/29
+  #    - 149.154.167.232/31
+  user_id:
+    user1: 12345
+
 
 # Zones
 zone: !include zones.yaml

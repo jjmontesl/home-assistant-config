@@ -1,8 +1,29 @@
 # Api.ai Integration HASS Module
 #
+# Conversation and API.AI integration
+
 # Provides entry point "intents" for api.ai
 
-# API.AI integration (conversation AI)
+
+# Allows you to issue voice commands in enabled browsers
+#conversation:
+conversation:
+  action:
+    service: shell_command.apiai_query
+    data_template:
+      query: "{{ text }}"
+
+automation:
+
+  alias: Telegram Conversation Hook
+  hide_entity: true
+  trigger:
+    platform: event
+    event_type: telegram.command
+  action:
+  - service: conversation.process
+    data_template:
+      text: '{{ event_data.message }}'
 
 shell_command:
   #apiai_query: ext/apiai/cli/apiai-client.py -a AUTH_TOKEN "{{ query }}"
@@ -81,7 +102,7 @@ apiai:
             volume_level: "{{ float(states.media_player.clementine_remote.attributes.volume_level) * 0.60 }}"
 
     media_track_query:
-      speech: "Este tema es: {{ states.media_player.clementine_remote.attributes.media_title }} de {{ states.media_player.clementine_remote.attributes.media_artist }}."
+      speech: "Este tema es: {{ states.media_player.clementine_remote.attributes.media_title }}, de {{ states.media_player.clementine_remote.attributes.media_artist }}."
       async_action: False
 
     alarm_clock_set:
@@ -103,4 +124,18 @@ apiai:
       speech: 'La alarma está {% if states.input_boolean.alarm_enabled.state == "on" %} puesta para las {{ states.sensor.template_alarm_time.state }} {% else %} desactivada {% endif %}.'
       async_action: False
 
+
+    media_tv_turn_on:
+      async_action: True
+      action:
+        - service: script.dev_tv_turn_on
+          #data_template:
+          #  entity_id: media_player.lg_tv_remote
+
+    media_tv_turn_off:
+      async_action: True
+      action:
+        - service: media_player.turn_off
+          data_template:
+            entity_id: media_player.lg_tv_remote
 

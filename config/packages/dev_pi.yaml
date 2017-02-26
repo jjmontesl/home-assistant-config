@@ -23,3 +23,13 @@ sensor:
     #- type: network_out
     #  arg: eth0
 
+switch:
+
+  - platform: command_line
+    switches:
+      pi_display:
+        friendly_name: Pi Display
+        command_on: "DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority xset dpms force on"
+        command_off: "DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority xset dpms force off"
+        command_state: "DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority xset -q | grep 'Monitor is' | grep 'On' > /dev/null"
+

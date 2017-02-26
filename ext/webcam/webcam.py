@@ -16,7 +16,7 @@ class Webcam():
         self.snapshot_path = '/srv/home-assistant/tmp/webcam-snapshot.jpg'
         self.snapshot_width = 800
         self.snapshot_height = 600
-        self.snapshot_delay = 4.0
+        self.snapshot_delay = 5.0
 
         self.start_time = datetime.datetime.utcnow()
         self.terminate = False

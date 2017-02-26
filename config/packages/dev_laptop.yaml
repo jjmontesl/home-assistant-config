@@ -38,27 +38,15 @@ sensor:
       #- 'process_thread'
       #- 'process_sleeping'
 
+switch:
 
-#sensor:
+  - platform: command_line
+    switches:
+      laptop_display:
+        friendly_name: Laptop Display
+        command_on: ssh jlaptop "export DISPLAY=:0 && xset dpms force on"
+        command_off: ssh jlaptop "export DISPLAY=:0 && xset dpms force off"
+        command_state: ssh jlaptop "export DISPLAY=:0 && xset -q | grep 'Monitor is' | grep 'On' | echo $?"
+        value_template: '{{ value == "0" }}'
 
-#  - platform: command_line
-#    name: CPU Temp
-#    command: "cat /sys/class/thermal/thermal_zone1/temp"
-#    unit_of_measurement: "ºC"
-#    value_template: '{{ value | multiply(0.001) }}'
-#
-#  - platform: systemmonitor
-#    resources:
-#    - type: disk_use_percent
-#      arg: /home
-#    - type: disk_use_percent
-#      arg: /
-#    - type: memory_free
-#    - type: memory_use_percent
-#    - type: processor_use
-#    - type: since_last_boot
-#    - type: network_in
-#      arg: eth0
-#    - type: network_out
-#      arg: eth0
 

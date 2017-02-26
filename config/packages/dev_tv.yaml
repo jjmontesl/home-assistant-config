@@ -21,3 +21,13 @@ automation:
         entity_id:
           - media_player.clementine_remote
 
+script:
+
+  dev_tv_turn_on:
+    sequence:
+      #- service: hdmi_cec.select_device
+      #  data:
+      #    device: TV
+      - service: hdmi_cec.power_on
+        data:
+          device: TV

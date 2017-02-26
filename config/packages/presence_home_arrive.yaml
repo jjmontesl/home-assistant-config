@@ -4,7 +4,7 @@
 
 
 automation:
-- alias: Notify Arrival Home
+- alias: Arrival Home
   trigger:
     platform: state
     entity_id: device_tracker.jmobile

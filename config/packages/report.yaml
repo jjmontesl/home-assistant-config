@@ -43,7 +43,7 @@ script:
       - service: script.notify
         data_template:
           # El sol ha salido / se pondrá
-          notify_mobile: False
+          #notify_mobile: False
           notify_text: >
             Son las {{ now().strftime("%H:%M") }}.
 
@@ -59,21 +59,30 @@ script:
 
       - service: script.notify
         data_template:
-          notify_text: >
-            La temperatura en Vigo es de {{ states.sensor.yr_temperature.state | int }} grados.
-            La nubosidad es del {{ states.sensor.yr_cloudiness.state | int }} por cien
-            y la humedad del {{ states.sensor.yr_humidity.state | int }} por cien.
-            {{ states.sensor.yr_temperature.state | int }} grados.
           notify_mobile: '{{ notify_mobile }}'
+          notify_text: >
+            La batería del teléfono está al {{ states.sensor.jmobile_battery.state }} por cien.
+            La de la tablet no esá configurada todavía.
 
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 
       - service: script.notify
         data_template:
+          notify_mobile: '{{ notify_mobile }}'
+          notify_text: >
+            La temperatura en Vigo es de {{ states.sensor.yr_temperature.state | int }} grados.
+            La nubosidad es del {{ states.sensor.yr_cloudiness.state | int }} por cien
+            y la humedad del {{ states.sensor.yr_humidity.state | int }} por cien.
+            {{ states.sensor.yr_temperature.state | int }} grados.
+
+      - wait_template: "{{ states.script.notify.state == 'off' }}"
+
+      - service: script.notify
+        data_template:
+          notify_mobile: '{{ notify_mobile }}'
           notify_text: >
             El tiempo de casa al trabajo son {{ states.sensor.casa__trabajo.state }} minutos.
             De casa a la finca {{ states.sensor.casa__finca.state }} minutos.
-          notify_mobile: '{{ notify_mobile }}'
 
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 

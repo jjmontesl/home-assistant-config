@@ -45,7 +45,7 @@ def main():
             speech = speech + m['speech'] + "\n\n"
             print(m['speech'])
 
-            if args.hass_url:
+            if args.hass_url and speech:
 
                 url = '%s/api/services/script/apiai_response' % args.hass_url
                 headers = {'x-ha-access': args.hass_password,
