@@ -71,8 +71,9 @@ frontend:
 
 # HTTP configuration
 http:
+  #base_url: !secret base_url
   api_password: !secret api_password
-  base_url: http://91.116.198.2:8123
+  use_x_forwarded_for: True
 
 # Checks for available updates
 updater:
@@ -138,7 +139,7 @@ telegram_webhooks:
   #    - 149.154.167.224/29
   #    - 149.154.167.232/31
   user_id:
-    user1: 12345
+    user1: !secret telegram_chat_id
 
 
 # Zones
@@ -173,7 +174,7 @@ input_boolean:
     initial: on
     icon: mdi:file-chart
   periodic_time:
-    name: Informe Horario
+    name: Anuncio Horario
     initial: on
     icon: mdi:file-chart
   warnings_enabled:

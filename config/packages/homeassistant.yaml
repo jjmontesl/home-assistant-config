@@ -28,6 +28,6 @@ automation:
         notification_id: hass_startup_notification
         title: "Home Assistant Startup"
         message: >
-          Home Assistant started at {{ as_timestamp(states.automation.hass_startup.attributes.last_triggered) | timestamp_custom("%b %d %X") }}.
+          Home Assistant started: {{ as_timestamp(now()) | timestamp_custom("%b %d %X") }}
 
 

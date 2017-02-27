@@ -25,6 +25,9 @@ dev_pi:
     - sensor.ram_use_percent
     - sensor.since_last_boot
     - sensor.ha_last_restart
+    - sensor.load_1m
+    - sensor.load_5m
+    - sensor.load_15m
 
 dev_jmobile:
   name: J Mobile
@@ -36,6 +39,7 @@ dev_laptop:
   name: Laptop
   entities:
     - switch.laptop_display
+    - input_slider.laptop_volume
     - sensor.laptop_monitoring_cpu_load
     - sensor.laptop_monitoring_disk_free
     - sensor.laptop_monitoring_disk_use
@@ -49,8 +53,8 @@ dev_laptop:
 dev_tv:
   name: TV
   entities:
-    - script.dev_tv_turn_on
     - media_player.lg_tv_remote
+    - script.dev_tv_turn_on
 
 mon_sites:
   name: Sites
@@ -174,6 +178,7 @@ default_view:
     - group.datetimeweather
     - group.lights
     - group.dev_tv
+    - input_slider.laptop_volume
     - media_player.clementine_remote
     - media_player.kodi
     #- media_player.mpd
@@ -226,6 +231,7 @@ scripts:
     - script.alarm_clock
     - script.home_report
     - script.periodic_report
+    - script.hourly_pips
 
 config_view:
   view: True

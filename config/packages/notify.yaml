@@ -17,12 +17,15 @@ script:
       - service: script.turn_off
         data:
           entity_id: script.notify_voice
+      - delay: 00:00:02
+
       - service: script.notify_voice
         data_template:
           notify_text: "{{ notify_text }}"
-          notify_voice: "{{ notify_voice }}"
-          notify_fade: "{{ False if notify_fade == 'False' else True }}"
+          notify_voice: "{{ notify_voice if notify_voice != '' else '' }}"
+          notify_fade: "{{ False if notify_fade in ('False', False) else True }}"
 
+      - delay: 00:00:02
       - wait_template: "{{ states.script.notify_voice.state == 'off' }}"
 
       # Send a notification via telegram
@@ -35,24 +38,11 @@ script:
           message: "{{ notify_text }}"
 
 
-  # TTS notification (local)
-  #
-  # Parameters:
-  #   notify_text
-  notify_voice:
+  # Fade out media before notifications
+  notify_fade_out:
     sequence:
 
-      # Notify depending of notify_voice
-      - condition: template
-        value_template: "{{ notify_voice if notify_voice else (states.device_tracker.jmobile.state == 'home') }}"
-
-      # Reduce Clementine volume, ensure MPD volume is high.
-      - service: media_player.volume_set
-        entity_id:
-          - media_player.mpd
-        data_template:
-          volume_level: 1.00
-
+      # Reduce Clementine volume,
       - service: media_player.volume_set
         entity_id:
           - media_player.clementine_remote
@@ -66,16 +56,16 @@ script:
           volume_level: "{{ 0.15 * float(states.input_slider.profile_volume.state) }}"
       - delay: '{{ "00:00:01" if notify_fade == "True" else "00:00:00" }}'
 
-      # Send the message to MPD
-      - service: tts.picotts_say
-        entity_id: media_player.mpd
+      # Ensure MPD volume is high.
+      - service: media_player.volume_set
+        entity_id:
+          - media_player.mpd
         data_template:
-          message: "{{ notify_text }}"
-          #cache: true
+          volume_level: 1.00
 
-      #- delay: '{{ voice_delay if voice_delay else "00:00:15" }}'
-      - delay: 00:00:05
-      - wait_template: "{{ states.media_player.mpd.state == 'off' }}"
+  # Fade in media after notifications
+  notify_fade_in:
+    sequence:
 
       # Restore Clementine volume
       - service: media_player.volume_set
@@ -90,5 +80,61 @@ script:
         data_template:
           volume_level: "{{ 1.00 * float(states.input_slider.profile_volume.state) }}"
 
+  # Play a sound file
+  notify_audio:
+    sequence:
 
+      # Fade out media
+      - service: script.notify_fade_out
+        data_template:
+          notify_fade: "{{ notify_fade }}"
+      - wait_template: "{{ states.script.notify_fade_out.state == 'off' }}"
+
+      # Send the message to MPD
+      - service: media_player.play_media
+        entity_id: media_player.mpd
+        data_template:
+          media_content_id: "{{ notify_audio }}"
+          media_content_type: "MUSIC"
+
+      #- delay: '{{ voice_delay if voice_delay else "00:00:15" }}'
+      - delay: 00:00:05
+      - wait_template: "{{ states.media_player.mpd.state == 'off' }}"
+
+      # Fade in media
+      - service: script.notify_fade_in
+        data_template:
+          notify_fade: "{{ notify_fade }}"
+      - wait_template: "{{ states.script.notify_fade_in.state == 'off' }}"
+
+  # TTS notification (local)
+  # Parameters:
+  #   notify_text
+  notify_voice:
+    sequence:
+
+      # Notify depending of notify_voice
+      - condition: template
+        value_template: "{{ notify_voice if notify_voice else (states.device_tracker.jmobile.state == 'home') }}"
+
+      # Fade out media
+      - service: script.notify_fade_out
+      - delay: 00:00:02
+      - wait_template: "{{ states.script.notify_fade_out.state == 'off' }}"
+
+      # Send the message to MPD
+      - service: tts.picotts_say
+        entity_id: media_player.mpd
+        data_template:
+          message: "{{ notify_text }}"
+          #cache: true
+
+      #- delay: '{{ voice_delay if voice_delay else "00:00:15" }}'
+      - delay: 00:00:05
+      - wait_template: "{{ states.media_player.mpd.state == 'off' }}"
+
+      # Fade in media
+      - service: script.notify_fade_in
+      - delay: 00:00:02
+      - wait_template: "{{ states.script.notify_fade_in.state == 'off' }}"
 

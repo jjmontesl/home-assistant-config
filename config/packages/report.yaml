@@ -23,14 +23,31 @@ automation:
 
 script:
 
+  hourly_pips:
+    alias: Hourly Pips
+    sequence:
+
+      - condition: template
+        value_template: "{{ states.input_boolean.periodic_time.state == 'on' }}"
+
+      - service: script.notify_audio
+        data_template:
+          notify_fade: True
+          notify_audio: "http://192.168.0.51:8123/local/sound/pips.wav"
+
+      - delay: 00:00:03
+      - wait_template: "{{ states.script.notify_audio.state == 'off' }}"
+
   periodic_report:
     alias: Periodic Report
     sequence:
 
-      #- service: script.notify
-      #  data_template:
-      #    notify_text: "Informe periódico."
-      #- delay: 00:00:20
+      - service: script.hourly_pips
+      - delay: 00:00:03
+      - wait_template: "{{ states.script.hourly_pips.state == 'off' }}"
+
+      - condition: template
+        value_template: "{{ states.input_boolean.periodic_report.state == 'on' }}"
 
       - service: script.home_report
         data_template:
@@ -55,15 +72,16 @@ script:
               El sol saldrá a las {{ as_timestamp(strptime(states.sun.sun.attributes['next_rising'], "%Y-%m-%dT%H:%M:%S")) | timestamp_custom("%H:%M")  }}.
             {% endif %}
 
+      - delay: 00:00:02
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 
       - service: script.notify
         data_template:
           notify_mobile: '{{ notify_mobile }}'
           notify_text: >
-            La batería del teléfono está al {{ states.sensor.jmobile_battery.state }} por cien.
-            La de la tablet no esá configurada todavía.
+            La batería del teléfono está al {{ states.sensor.jmobile_battery.state | round }} por cien.
 
+      - delay: 00:00:02
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 
       - service: script.notify
@@ -75,6 +93,7 @@ script:
             y la humedad del {{ states.sensor.yr_humidity.state | int }} por cien.
             {{ states.sensor.yr_temperature.state | int }} grados.
 
+      - delay: 00:00:02
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 
       - service: script.notify
@@ -84,6 +103,7 @@ script:
             El tiempo de casa al trabajo son {{ states.sensor.casa__trabajo.state }} minutos.
             De casa a la finca {{ states.sensor.casa__finca.state }} minutos.
 
+      - delay: 00:00:02
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 
       # Ignore events too far away
@@ -97,6 +117,7 @@ script:
             {{ states.sensor.template_calendar_work.state }}.
           notify_mobile: '{{ notify_mobile }}'
 
+      - delay: 00:00:02
       - wait_template: "{{ states.script.notify.state == 'off' }}"
 
       # Alarm clock info: enabled / disabled, time / remaining time

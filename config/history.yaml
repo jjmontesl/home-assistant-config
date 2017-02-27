@@ -38,6 +38,9 @@ include:
     - sensor.disk_use_home
     - sensor.ram_free
     - sensor.ram_use_percent
+    - sensor.load_1m
+    - sensor.load_5m
+    - sensor.load_15m
 
     - sensor.jmobile_battery
 

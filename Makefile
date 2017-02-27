@@ -161,8 +161,13 @@ deploy-config: dist-config
 		sudo cp -r /tmp/hass-$(TMPID)/hass-config/* $(INSTALL_DIR)/ && \
 		sudo chown -R homeassistant. $(INSTALL_DIR)'
 
-.PHONY: deploy-secret
-deploy-secret:
+	ssh $(INSTALL_HOST) '\
+		sudo sed -i "s/  \#base_url: !secret base_url/  base_url: !secret base_url/" $(INSTALL_DIR)/config/configuration.yaml'
+		
+
+
+.PHONY: deploy-secrets
+deploy-secrets:
 
 	$(info Deploying HA var config to $(INSTALL_HOST).)
 	

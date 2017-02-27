@@ -23,7 +23,7 @@ automation:
   action:
   - service: conversation.process
     data_template:
-      text: '{{ event_data.message }}'
+      text: "{{ trigger.event.data['command'].strip('/') }} {{ trigger.event.data['args'] }}"
 
 shell_command:
   #apiai_query: ext/apiai/cli/apiai-client.py -a AUTH_TOKEN "{{ query }}"
@@ -111,11 +111,11 @@ apiai:
         - service: input_slider.select_value
           data_template:
             entity_id: input_slider.alarm_hour
-            value: '{{ time.split(":")[0] }}'
+            value: '{{ (as_timestamp(time) | timestamp_custom("%H:%M")).split(":")[0] }}'
         - service: input_slider.select_value
           data_template:
             entity_id: input_slider.alarm_minute
-            value: '{{ time.split(":")[1] }}'
+            value: '{{ (as_timestamp(time) | timestamp_custom("%H:%M")).split(":")[1] }}'
         - service: input_boolean.turn_on
           data:
             entity_id: input_boolean.alarm_enabled

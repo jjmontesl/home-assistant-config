@@ -43,18 +43,20 @@ def main():
 
         for m in result["result"]["fulfillment"]["messages"]:
             speech = speech + m['speech'] + "\n\n"
-            print(m['speech'])
 
-            if args.hass_url and speech:
+        speech = speech.strip()
+        print(m['speech'])
 
-                url = '%s/api/services/script/apiai_response' % args.hass_url
-                headers = {'x-ha-access': args.hass_password,
-                           'content-type': 'application/json'}
-                data = { 'notify_text': speech }
+        if args.hass_url and speech:
 
-                response = requests.post(url, headers=headers, data=json.dumps(data))
+            url = '%s/api/services/script/apiai_response' % args.hass_url
+            headers = {'x-ha-access': args.hass_password,
+                       'content-type': 'application/json'}
+            data = { 'notify_text': speech }
 
-                #print("*%s" % response.text)
+            response = requests.post(url, headers=headers, data=json.dumps(data))
+
+            #print("*%s" % response.text)
 
 if __name__ == '__main__':
     main()

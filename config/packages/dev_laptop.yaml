@@ -2,6 +2,16 @@
 #
 # Provides local system monitoring and info.
 
+input_slider:
+
+  laptop_volume:
+    name: Volumen Laptop
+    initial: 50
+    min: 0
+    max: 100
+    step: 5
+    icon: mdi:volume-medium
+
 media_player:
 
   - platform: kodi
@@ -38,15 +48,46 @@ sensor:
       #- 'process_thread'
       #- 'process_sleeping'
 
+  - platform: command_line
+    name: Laptop Volume Read
+    command: ssh homeassistant@jlaptop "~/bin/amixer sget Master | grep -Eo '\[(\w+)\%\]' | grep -Eo '\w+'"
+    unit_of_measurement: "%"
+    value_template: '{{ value | int }}'
+
 switch:
 
   - platform: command_line
     switches:
       laptop_display:
         friendly_name: Laptop Display
-        command_on: ssh jlaptop "export DISPLAY=:0 && xset dpms force on"
-        command_off: ssh jlaptop "export DISPLAY=:0 && xset dpms force off"
-        command_state: ssh jlaptop "export DISPLAY=:0 && xset -q | grep 'Monitor is' | grep 'On' | echo $?"
-        value_template: '{{ value == "0" }}'
+        command_on: ssh homeassistant@jlaptop "export DISPLAY=:0 && export XAUTHORITY=/home/jjmontes/.Xauthority && ~/bin/xset dpms force on"
+        command_off: ssh homeassistant@jlaptop "export DISPLAY=:0 && export XAUTHORITY=/home/jjmontes/.Xauthority && ~/bin/xset dpms force off"
+        command_state: ssh homeassistant@jlaptop "export DISPLAY=:0 && export XAUTHORITY=/home/jjmontes/.Xauthority && ~/bin/xset -q" | grep 'Monitor is' | grep 'On'
+        #value_template: '{{ value.strip() == "0" }}'
+
+shell_command:
+  laptop_volume_set: ssh homeassistant@jlaptop "~/bin/amixer sset Master '{{ volume_level }}%'"
+
+automation:
+
+  # Laptop volume automation
+  - alias: Laptop Volume Change
+    trigger:
+      - platform: state
+        entity_id: input_slider.laptop_volume
+    action:
+      - service: shell_command.laptop_volume_set
+        data_template:
+          volume_level: "{{ states.input_slider.laptop_volume.state }}"
+
+  - alias: Laptop Volume Change Read
+    trigger:
+      - platform: state
+        entity_id: sensor.laptop_volume_read
+    action:
+      - service: input_slider.select_value
+        data_template:
+          entity_id: input_slider.laptop_volume
+          value: "{{ states.sensor.laptop_volume_read.state | int }}"
 
 

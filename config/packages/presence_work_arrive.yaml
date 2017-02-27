@@ -9,7 +9,16 @@ automation:
       platform: state
       entity_id: device_tracker.jmobile
       to: 'Trabajo'
+      from: 'not_home'
+    action:
+      - service: script.work_arrive
 
+  - alias: Notify Arrival Work 2
+    trigger:
+      platform: state
+      entity_id: device_tracker.jmobile
+      to: 'Trabajo'
+      from: 'home'
     action:
       - service: script.work_arrive
 
